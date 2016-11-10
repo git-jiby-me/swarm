@@ -3,7 +3,7 @@ package client
 import (
 	"io"
 
-	"github.com/docker/docker/api/types"
+	"github.com/docker/engine-api/types"
 	"golang.org/x/net/context"
 )
 

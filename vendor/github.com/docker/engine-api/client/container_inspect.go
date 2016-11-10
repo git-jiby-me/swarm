@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/docker/docker/api/types"
+	"github.com/docker/engine-api/types"
 	"golang.org/x/net/context"
 )
 

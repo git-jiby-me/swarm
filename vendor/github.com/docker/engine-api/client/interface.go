@@ -4,14 +4,14 @@ import (
 	"io"
 	"time"
 
-	"github.com/docker/docker/api/types"
-	"github.com/docker/docker/api/types/container"
-	"github.com/docker/docker/api/types/events"
-	"github.com/docker/docker/api/types/filters"
-	"github.com/docker/docker/api/types/network"
-	"github.com/docker/docker/api/types/registry"
-	"github.com/docker/docker/api/types/swarm"
-	volumetypes "github.com/docker/docker/api/types/volume"
+	"github.com/docker/engine-api/types"
+	"github.com/docker/engine-api/types/container"
+	"github.com/docker/engine-api/types/events"
+	"github.com/docker/engine-api/types/filters"
+	"github.com/docker/engine-api/types/network"
+	"github.com/docker/engine-api/types/registry"
+	"github.com/docker/engine-api/types/swarm"
+	volumetypes "github.com/docker/engine-api/types/volume"
 	"golang.org/x/net/context"
 )
 

@@ -4,8 +4,8 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/docker/docker/api/types"
-	"github.com/docker/docker/api/types/swarm"
+	"github.com/docker/engine-api/types"
+	"github.com/docker/engine-api/types/swarm"
 	"golang.org/x/net/context"
 )
 

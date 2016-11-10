@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/docker/docker/api/types"
-	"github.com/docker/docker/api/types/filters"
-	"github.com/docker/docker/api/types/registry"
+	"github.com/docker/engine-api/types"
+	"github.com/docker/engine-api/types/filters"
+	"github.com/docker/engine-api/types/registry"
 	"golang.org/x/net/context"
 )
 

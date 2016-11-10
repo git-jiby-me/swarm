@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/docker/docker/api/types/container"
+	"github.com/docker/engine-api/types/container"
 
 	"golang.org/x/net/context"
 )

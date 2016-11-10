@@ -22,7 +22,7 @@ For example, to list running containers (the equivalent of "docker ps"):
 		"context"
 		"fmt"
 
-		"github.com/docker/docker/api/types"
+		"github.com/docker/engine-api/types"
 		"github.com/docker/docker/client"
 	)
 

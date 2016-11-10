@@ -7,10 +7,10 @@ import (
 
 	"golang.org/x/net/context"
 
-	"github.com/docker/docker/api/types"
-	"github.com/docker/docker/api/types/events"
-	"github.com/docker/docker/api/types/filters"
-	timetypes "github.com/docker/docker/api/types/time"
+	"github.com/docker/engine-api/types"
+	"github.com/docker/engine-api/types/events"
+	"github.com/docker/engine-api/types/filters"
+	timetypes "github.com/docker/engine-api/types/time"
 )
 
 // Events returns a stream of events in the daemon. It's up to the caller to close the stream

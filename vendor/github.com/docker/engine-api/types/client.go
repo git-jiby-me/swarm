@@ -6,8 +6,8 @@ import (
 	"net"
 	"os"
 
-	"github.com/docker/docker/api/types/container"
-	"github.com/docker/docker/api/types/filters"
+	"github.com/docker/engine-api/types/container"
+	"github.com/docker/engine-api/types/filters"
 	"github.com/docker/go-units"
 )
 

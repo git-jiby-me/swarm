@@ -5,8 +5,8 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/docker/docker/api/types/container"
-	"github.com/docker/docker/api/types/network"
+	"github.com/docker/engine-api/types/container"
+	"github.com/docker/engine-api/types/network"
 	"golang.org/x/net/context"
 )
 

@@ -1,7 +1,7 @@
 // Package v1p24 provides specific API types for the API version 1, patch 24.
 package v1p24
 
-import "github.com/docker/docker/api/types"
+import "github.com/docker/engine-api/types"
 
 type Info struct {
 	*types.InfoBase

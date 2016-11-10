@@ -5,12 +5,12 @@ import (
 	"os"
 	"time"
 
-	"github.com/docker/docker/api/types/container"
-	"github.com/docker/docker/api/types/filters"
-	"github.com/docker/docker/api/types/mount"
-	"github.com/docker/docker/api/types/network"
-	"github.com/docker/docker/api/types/registry"
-	"github.com/docker/docker/api/types/swarm"
+	"github.com/docker/engine-api/types/container"
+	"github.com/docker/engine-api/types/filters"
+	"github.com/docker/engine-api/types/mount"
+	"github.com/docker/engine-api/types/network"
+	"github.com/docker/engine-api/types/registry"
+	"github.com/docker/engine-api/types/swarm"
 	"github.com/docker/go-connections/nat"
 )
 

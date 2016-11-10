@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/docker/docker/api/types"
+	"github.com/docker/engine-api/types"
 	"github.com/docker/docker/pkg/tlsconfig"
 	"github.com/docker/go-connections/sockets"
 	"golang.org/x/net/context"

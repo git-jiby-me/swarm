@@ -3,9 +3,9 @@ package container
 import (
 	"strings"
 
-	"github.com/docker/docker/api/types/blkiodev"
-	"github.com/docker/docker/api/types/mount"
-	"github.com/docker/docker/api/types/strslice"
+	"github.com/docker/engine-api/types/blkiodev"
+	"github.com/docker/engine-api/types/mount"
+	"github.com/docker/engine-api/types/strslice"
 	"github.com/docker/go-connections/nat"
 	"github.com/docker/go-units"
 )

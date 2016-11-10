@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/docker/docker/api/types/versions"
+	"github.com/docker/engine-api/types/versions"
 )
 
 // ErrConnectionFailed is an error raised when the connection between the client and the server failed.

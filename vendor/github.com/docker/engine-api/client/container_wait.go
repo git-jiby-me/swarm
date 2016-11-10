@@ -5,7 +5,7 @@ import (
 
 	"golang.org/x/net/context"
 
-	"github.com/docker/docker/api/types/container"
+	"github.com/docker/engine-api/types/container"
 )
 
 // ContainerWait pauses execution until a container exits.

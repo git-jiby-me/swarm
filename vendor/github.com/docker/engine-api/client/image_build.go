@@ -11,8 +11,8 @@ import (
 
 	"golang.org/x/net/context"
 
-	"github.com/docker/docker/api/types"
-	"github.com/docker/docker/api/types/container"
+	"github.com/docker/engine-api/types"
+	"github.com/docker/engine-api/types/container"
 )
 
 var headerRegexp = regexp.MustCompile(`\ADocker/.+\s\((.+)\)\z`)
