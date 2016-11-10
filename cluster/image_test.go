@@ -58,12 +58,12 @@ func TestMatchPrivateRepo(t *testing.T) {
 func TestImagesFilterWithLabelFilter(t *testing.T) {
 	engine := NewEngine("test", 0, engOpts)
 	images := Images{
-		{types.Image{ID: "a"}, engine},
-		{types.Image{
+		{types.ImageSummary{ID: "a"}, engine},
+		{types.ImageSummary{
 			ID:     "b",
 			Labels: map[string]string{"com.example.project": "bar"},
 		}, engine},
-		{types.Image{ID: "c"}, engine},
+		{types.ImageSummary{ID: "c"}, engine},
 	}
 
 	filters := dockerfilters.NewArgs()
@@ -77,14 +77,14 @@ func TestImagesFilterWithMatchName(t *testing.T) {
 	engine := NewEngine("test", 0, engOpts)
 	images := Images{
 		{
-			types.Image{
+			types.ImageSummary{
 				ID:       "a",
 				RepoTags: []string{"example:latest", "example:2"},
 			},
 			engine,
 		},
 		{
-			types.Image{ID: "b", RepoTags: []string{"example:1"}},
+			types.ImageSummary{ID: "b", RepoTags: []string{"example:1"}},
 			engine,
 		},
 	}
@@ -98,18 +98,18 @@ func TestImagesFilterWithMatchNameWithTag(t *testing.T) {
 	engine := NewEngine("test", 0, engOpts)
 	images := Images{
 		{
-			types.Image{
+			types.ImageSummary{
 				ID:       "a",
 				RepoTags: []string{"example:latest", "example:2"},
 			},
 			engine,
 		},
 		{
-			types.Image{ID: "b", RepoTags: []string{"example:1"}},
+			types.ImageSummary{ID: "b", RepoTags: []string{"example:1"}},
 			engine,
 		},
 		{
-			types.Image{ID: "c", RepoTags: []string{"foo:latest"}},
+			types.ImageSummary{ID: "c", RepoTags: []string{"foo:latest"}},
 			engine,
 		},
 	}

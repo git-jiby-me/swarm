@@ -25,6 +25,7 @@ import (
 	"github.com/mesos/mesos-go/mesosproto"
 	mesosscheduler "github.com/mesos/mesos-go/scheduler"
 	"github.com/samalba/dockerclient"
+	volumetypes "github.com/docker/engine-api/types/volume"
 )
 
 // Cluster struct for mesos
@@ -305,7 +306,7 @@ func (c *Cluster) refreshNetworks() {
 }
 
 // CreateVolume creates a volume in the cluster
-func (c *Cluster) CreateVolume(request *types.VolumeCreateRequest) (*types.Volume, error) {
+func (c *Cluster) CreateVolume(request *volumetypes.VolumesCreateBody) (*types.Volume, error) {
 	return nil, errNotSupported
 }
 

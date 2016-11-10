@@ -25,6 +25,7 @@ import (
 	"github.com/git-jiby-me/swarm/version"
 	"github.com/gorilla/mux"
 	"github.com/samalba/dockerclient"
+	volumetypes "github.com/docker/engine-api/types/volume"
 )
 
 // APIVERSION is the API version supported by swarm manager
@@ -185,7 +186,7 @@ func getImagesJSON(c *context, w http.ResponseWriter, r *http.Request) {
 	accepteds := filters.Get("node")
 	// this struct helps grouping images
 	// but still keeps their Engine infos as an array.
-	groupImages := make(map[string]apitypes.Image)
+	groupImages := make(map[string]apitypes.ImageSummary)
 	opts := cluster.ImageFilterOptions{
 		ImageListOptions: apitypes.ImageListOptions{
 			All:       boolValue(r, "all"),
@@ -217,7 +218,7 @@ func getImagesJSON(c *context, w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	images := []apitypes.Image{}
+	images := []apitypes.ImageSummary{}
 
 	for _, image := range groupImages {
 		// de-duplicate RepoTags
@@ -310,7 +311,7 @@ func getVolume(c *context, w http.ResponseWriter, r *http.Request) {
 
 // GET /volumes
 func getVolumes(c *context, w http.ResponseWriter, r *http.Request) {
-	volumesListResponse := apitypes.VolumesListResponse{}
+	volumesListResponse := apivolumetypes.VolumesListOKBody{}
 
 	for _, volume := range c.cluster.Volumes() {
 		tmp := (*volume).Volume
@@ -651,7 +652,7 @@ func postNetworksCreate(c *context, w http.ResponseWriter, r *http.Request) {
 
 // POST /volumes/create
 func postVolumesCreate(c *context, w http.ResponseWriter, r *http.Request) {
-	var request apitypes.VolumeCreateRequest
+	var request volumetypes.VolumesCreateBody
 
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		httpError(w, err.Error(), http.StatusBadRequest)

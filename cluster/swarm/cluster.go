@@ -24,6 +24,7 @@ import (
 	"github.com/git-jiby-me/swarm/scheduler"
 	"github.com/git-jiby-me/swarm/scheduler/node"
 	"github.com/samalba/dockerclient"
+	volumetypes "github.com/docker/engine-api/types/volume"
 )
 
 type pendingContainer struct {
@@ -521,7 +522,7 @@ func (c *Cluster) CreateNetwork(name string, request *types.NetworkCreate) (resp
 }
 
 // CreateVolume creates a volume in the cluster
-func (c *Cluster) CreateVolume(request *types.VolumeCreateRequest) (*types.Volume, error) {
+func (c *Cluster) CreateVolume(request *volumetypes.VolumesCreateBody) (*types.Volume, error) {
 	var (
 		wg     sync.WaitGroup
 		volume *types.Volume

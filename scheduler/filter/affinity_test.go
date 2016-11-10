@@ -29,7 +29,7 @@ func TestAffinityFilter(t *testing.T) {
 						Names: []string{"/container-n0-1-name"},
 					}},
 				},
-				Images: []*cluster.Image{{Image: types.Image{
+				Images: []*cluster.Image{{Image: types.ImageSummary{
 					ID:       "image-0-id",
 					RepoTags: []string{"image-0:tag1", "image-0:tag2"},
 				}}},
@@ -48,7 +48,7 @@ func TestAffinityFilter(t *testing.T) {
 						Names: []string{"/container-n1-1-name"},
 					}},
 				},
-				Images: []*cluster.Image{{Image: types.Image{
+				Images: []*cluster.Image{{Image: types.ImageSummary{
 					ID:       "image-1-id",
 					RepoTags: []string{"image-1:tag1", "image-0:tag3", "image-1:tag2"},
 				}}},
@@ -217,7 +217,7 @@ func TestAffinityFilterLabels(t *testing.T) {
 						Names: []string{"/container-n0-name"},
 					}},
 				},
-				Images: []*cluster.Image{{Image: types.Image{
+				Images: []*cluster.Image{{Image: types.ImageSummary{
 					ID:       "image-0-id",
 					RepoTags: []string{"image-0:tag0"},
 				}}},
@@ -232,7 +232,7 @@ func TestAffinityFilterLabels(t *testing.T) {
 						Names: []string{"/container-n1-name"},
 					}},
 				},
-				Images: []*cluster.Image{{Image: types.Image{
+				Images: []*cluster.Image{{Image: types.ImageSummary{
 					ID:       "image-1-id",
 					RepoTags: []string{"image-1:tag1"},
 				}}},

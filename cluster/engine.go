@@ -25,10 +25,12 @@ import (
 	"github.com/docker/engine-api/types/events"
 	"github.com/docker/engine-api/types/filters"
 	networktypes "github.com/docker/engine-api/types/network"
+	"github.com/docker/engine-api/types/container"
 	engineapinop "github.com/git-jiby-me/swarm/api/nopclient"
 	"github.com/git-jiby-me/swarm/swarmclient"
 	"github.com/samalba/dockerclient"
 	"github.com/samalba/dockerclient/nopclient"
+	volumetypes "github.com/docker/engine-api/types/volume"
 )
 
 const (
@@ -971,7 +973,7 @@ func (e *Engine) TotalCpus() int64 {
 func (e *Engine) CreateContainer(config *ContainerConfig, name string, pullImage bool, authConfig *types.AuthConfig) (*Container, error) {
 	var (
 		err        error
-		createResp types.ContainerCreateResponse
+		createResp container.ContainerCreateCreatedBody
 	)
 
 	// Convert our internal ContainerConfig into something Docker will
@@ -1052,7 +1054,7 @@ func (e *Engine) CreateNetwork(name string, request *types.NetworkCreate) (*type
 }
 
 // CreateVolume creates a volume in the engine
-func (e *Engine) CreateVolume(request *types.VolumeCreateRequest) (*types.Volume, error) {
+func (e *Engine) CreateVolume(request *volumetypes.VolumesCreateBody) (*types.Volume, error) {
 	volume, err := e.apiClient.VolumeCreate(context.Background(), *request)
 	e.CheckConnectionErr(err)
 	if err != nil {

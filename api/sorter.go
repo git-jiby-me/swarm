@@ -27,7 +27,7 @@ func (s ContainerSorter) Less(i, j int) bool {
 
 // ImageSorter implements the Sort interface to sort Docker Images.
 // It is not guaranteed to be a stable sort.
-type ImageSorter []types.Image
+type ImageSorter []types.ImageSummary
 
 // Len returns the number of images to be sorted.
 func (s ImageSorter) Len() int {

@@ -32,7 +32,7 @@ func TestApplyFilters(t *testing.T) {
 						},
 					},
 				},
-				Images: []*cluster.Image{{Image: types.Image{
+				Images: []*cluster.Image{{Image: types.ImageSummary{
 					ID:       "image-0-id",
 					RepoTags: []string{"image-0:tag1", "image-0:tag2"},
 				}}},
@@ -56,7 +56,7 @@ func TestApplyFilters(t *testing.T) {
 						},
 					},
 				},
-				Images: []*cluster.Image{{Image: types.Image{
+				Images: []*cluster.Image{{Image: types.ImageSummary{
 					ID:       "image-1-id",
 					RepoTags: []string{"image-1:tag1", "image-0:tag3", "image-1:tag2"},
 				}}},

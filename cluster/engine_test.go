@@ -22,6 +22,7 @@ import (
 	"github.com/samalba/dockerclient/nopclient"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
+	volumetypes "github.com/docker/engine-api/types/volume"
 )
 
 type infiniteRead struct{}
@@ -183,8 +184,8 @@ func TestEngineCpusMemory(t *testing.T) {
 	).Return([]types.NetworkResource{}, nil)
 	apiClient.On("VolumeList", mock.Anything,
 		mock.AnythingOfType("Args"),
-	).Return(types.VolumesListResponse{}, nil)
-	apiClient.On("ImageList", mock.Anything, mock.AnythingOfType("ImageListOptions")).Return([]types.Image{}, nil)
+	).Return(volumetypes.VolumesListOKBody{}, nil)
+	apiClient.On("ImageList", mock.Anything, mock.AnythingOfType("ImageListOptions")).Return([]types.ImageSummary{}, nil)
 	apiClient.On("ContainerList", mock.Anything, types.ContainerListOptions{All: true, Size: false}).Return([]types.Container{}, nil)
 	apiClient.On("Events", mock.Anything, mock.AnythingOfType("EventsOptions")).Return(&nopCloser{infiniteRead{}}, nil)
 
@@ -213,8 +214,8 @@ func TestEngineSpecs(t *testing.T) {
 	).Return([]types.NetworkResource{}, nil)
 	apiClient.On("VolumeList", mock.Anything,
 		mock.AnythingOfType("Args"),
-	).Return(types.VolumesListResponse{}, nil)
-	apiClient.On("ImageList", mock.Anything, mock.AnythingOfType("ImageListOptions")).Return([]types.Image{}, nil)
+	).Return(volumetypes.VolumesListOKBody{}, nil)
+	apiClient.On("ImageList", mock.Anything, mock.AnythingOfType("ImageListOptions")).Return([]types.ImageSummary{}, nil)
 	apiClient.On("ContainerList", mock.Anything, types.ContainerListOptions{All: true, Size: false}).Return([]types.Container{}, nil)
 	apiClient.On("Events", mock.Anything, mock.AnythingOfType("EventsOptions")).Return(&nopCloser{infiniteRead{}}, nil)
 
@@ -255,11 +256,11 @@ func TestEngineState(t *testing.T) {
 	).Return([]types.NetworkResource{}, nil)
 	apiClient.On("VolumeList", mock.Anything,
 		mock.AnythingOfType("Args"),
-	).Return(types.VolumesListResponse{}, nil)
+	).Return(volumetypes.VolumesListOKBody{}, nil)
 	apiClient.On("Events", mock.Anything, mock.AnythingOfType("EventsOptions")).Return(&nopCloser{infiniteRead{}}, nil)
 
 	// The client will return one container at first, then a second one will appear.
-	apiClient.On("ImageList", mock.Anything, mock.AnythingOfType("ImageListOptions")).Return([]types.Image{}, nil).Once()
+	apiClient.On("ImageList", mock.Anything, mock.AnythingOfType("ImageListOptions")).Return([]types.ImageSummary{}, nil).Once()
 
 	apiClient.On(
 		"ContainerList",
@@ -389,10 +390,10 @@ func TestCreateContainer(t *testing.T) {
 	).Return([]types.NetworkResource{}, nil)
 	apiClient.On("VolumeList", mock.Anything,
 		mock.AnythingOfType("Args"),
-	).Return(types.VolumesListResponse{}, nil)
+	).Return(volumetypes.VolumesListOKBody{}, nil)
 	apiClient.On("Events", mock.Anything, mock.AnythingOfType("EventsOptions")).Return(&nopCloser{infiniteRead{}}, nil)
 	client.On("ListContainers", true, false, "").Return([]dockerclient.Container{}, nil).Once()
-	apiClient.On("ImageList", mock.Anything, mock.AnythingOfType("ImageListOptions")).Return([]types.Image{}, nil).Once()
+	apiClient.On("ImageList", mock.Anything, mock.AnythingOfType("ImageListOptions")).Return([]types.ImageSummary{}, nil).Once()
 	// filterArgs1 := filters.NewArgs()
 	// filterArgs1.Add("id", id)
 	apiClient.On("ContainerList", mock.Anything, types.ContainerListOptions{All: true, Size: false}).Return([]types.Container{}, nil).Once()
@@ -406,7 +407,7 @@ func TestCreateContainer(t *testing.T) {
 	// Everything is ok
 	name := "test1"
 	id := "id1"
-	apiClient.On("ImageList", mock.Anything, mock.AnythingOfType("ImageListOptions")).Return([]types.Image{}, nil).Once()
+	apiClient.On("ImageList", mock.Anything, mock.AnythingOfType("ImageListOptions")).Return([]types.ImageSummary{}, nil).Once()
 	var auth *types.AuthConfig
 
 	apiClient.On(
@@ -417,7 +418,7 @@ func TestCreateContainer(t *testing.T) {
 		&mockConfig.NetworkingConfig,
 		name,
 	).Return(
-		types.ContainerCreateResponse{ID: id},
+		containertypes.ContainerCreateCreatedBody{ID: id},
 		nil,
 	).Once()
 
@@ -472,7 +473,7 @@ func TestCreateContainer(t *testing.T) {
 		&mockConfig.NetworkingConfig,
 		name,
 	).Return(
-		types.ContainerCreateResponse{},
+		containertypes.ContainerCreateCreatedBody{},
 		dockerclient.ErrImageNotFound,
 	).Once()
 
@@ -483,7 +484,7 @@ func TestCreateContainer(t *testing.T) {
 	// Image not found, pullImage == true, and the image can be pulled successfully
 	name = "test3"
 	id = "id3"
-	apiClient.On("ImageList", mock.Anything, mock.AnythingOfType("ImageListOptions")).Return([]types.Image{}, nil).Once()
+	apiClient.On("ImageList", mock.Anything, mock.AnythingOfType("ImageListOptions")).Return([]types.ImageSummary{}, nil).Once()
 	mockConfig.HostConfig.CPUShares = int64(math.Ceil(float64(config.HostConfig.CPUShares*1024) / float64(mockInfo.NCPU)))
 	apiClient.On("ImagePull", mock.Anything, config.Image, mock.AnythingOfType("types.ImagePullOptions")).Return(readCloser, nil).Once()
 	// TODO(nishanttotla): below should return an engine-api error, or something custom, so that we can get rid of dockerclient
@@ -495,7 +496,7 @@ func TestCreateContainer(t *testing.T) {
 		&mockConfig.NetworkingConfig,
 		name,
 	).Return(
-		types.ContainerCreateResponse{},
+		containertypes.ContainerCreateCreatedBody{},
 		dockerclient.ErrImageNotFound,
 	).Once()
 
@@ -508,7 +509,7 @@ func TestCreateContainer(t *testing.T) {
 		&mockConfig.NetworkingConfig,
 		name,
 	).Return(
-		types.ContainerCreateResponse{ID: id},
+		containertypes.ContainerCreateCreatedBody{ID: id},
 		nil,
 	).Once()
 
@@ -551,9 +552,9 @@ func TestImages(t *testing.T) {
 	engine := NewEngine("test", 0, engOpts)
 	engine.setState(stateHealthy)
 	engine.images = []*Image{
-		{types.Image{ID: "a"}, engine},
-		{types.Image{ID: "b"}, engine},
-		{types.Image{ID: "c"}, engine},
+		{types.ImageSummary{ID: "a"}, engine},
+		{types.ImageSummary{ID: "b"}, engine},
+		{types.ImageSummary{ID: "c"}, engine},
 	}
 
 	result := engine.Images()
@@ -604,9 +605,9 @@ func TestUsedCpus(t *testing.T) {
 				).Return([]types.NetworkResource{}, nil)
 				apiClient.On("VolumeList", mock.Anything,
 					mock.AnythingOfType("Args"),
-				).Return(types.VolumesListResponse{}, nil)
+				).Return(volumetypes.VolumesListOKBody{}, nil)
 				apiClient.On("Events", mock.Anything, mock.AnythingOfType("EventsOptions")).Return(&nopCloser{infiniteRead{}}, nil)
-				apiClient.On("ImageList", mock.Anything, mock.AnythingOfType("ImageListOptions")).Return([]types.Image{}, nil).Once()
+				apiClient.On("ImageList", mock.Anything, mock.AnythingOfType("ImageListOptions")).Return([]types.ImageSummary{}, nil).Once()
 
 				apiClient.On(
 					"ContainerList",
@@ -688,8 +689,8 @@ func TestContainerRemovedDuringRefresh(t *testing.T) {
 	).Return([]types.NetworkResource{}, nil)
 	apiClient.On("VolumeList", mock.Anything,
 		mock.AnythingOfType("Args"),
-	).Return(types.VolumesListResponse{}, nil)
-	apiClient.On("ImageList", mock.Anything, mock.AnythingOfType("ImageListOptions")).Return([]types.Image{}, nil)
+	).Return(volumetypes.VolumesListOKBody{}, nil)
+	apiClient.On("ImageList", mock.Anything, mock.AnythingOfType("ImageListOptions")).Return([]types.ImageSummary{}, nil)
 	apiClient.On("Events", mock.Anything, mock.AnythingOfType("EventsOptions")).Return(&nopCloser{infiniteRead{}}, nil)
 
 	apiClient.On(
@@ -732,11 +733,11 @@ func TestDisconnect(t *testing.T) {
 	).Return([]types.NetworkResource{}, nil)
 	apiClient.On("VolumeList", mock.Anything,
 		mock.AnythingOfType("Args"),
-	).Return(types.VolumesListResponse{}, nil)
+	).Return(volumetypes.VolumesListOKBody{}, nil)
 	apiClient.On("Events", mock.Anything, mock.AnythingOfType("EventsOptions")).Return(&nopCloser{infiniteRead{}}, nil)
 
 	// The client will return one container at first, then a second one will appear.
-	apiClient.On("ImageList", mock.Anything, mock.AnythingOfType("ImageListOptions")).Return([]types.Image{}, nil)
+	apiClient.On("ImageList", mock.Anything, mock.AnythingOfType("ImageListOptions")).Return([]types.ImageSummary{}, nil)
 
 	apiClient.On(
 		"ContainerList",
@@ -831,7 +832,7 @@ func TestRemoveImage(t *testing.T) {
 	dIs := []types.ImageDelete{{Deleted: imageName}}
 
 	apiClient := engineapimock.NewMockClient()
-	apiClient.On("ImageList", mock.Anything, mock.AnythingOfType("ImageListOptions")).Return([]types.Image{}, nil)
+	apiClient.On("ImageList", mock.Anything, mock.AnythingOfType("ImageListOptions")).Return([]types.ImageSummary{}, nil)
 	apiClient.On("ImageRemove", mock.Anything, mock.Anything,
 		mock.AnythingOfType("ImageRemoveOptions")).Return(dIs, nil)
 	engine.apiClient = apiClient

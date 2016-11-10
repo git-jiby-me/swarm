@@ -5,6 +5,7 @@ import (
 
 	"github.com/docker/engine-api/types"
 	"github.com/samalba/dockerclient"
+	volumetypes "github.com/docker/engine-api/types/volume"
 )
 
 // Cluster is exported
@@ -45,7 +46,7 @@ type Cluster interface {
 	RemoveNetwork(network *Network) error
 
 	// Create a volume
-	CreateVolume(request *types.VolumeCreateRequest) (*types.Volume, error)
+	CreateVolume(request *volumetypes.VolumesCreateBody) (*types.Volume, error)
 
 	// Return all volumes
 	Volumes() Volumes
