@@ -8,7 +8,7 @@ import (
 
 // Image is exported
 type Image struct {
-	types.Image
+	types.ImageSummary
 
 	Engine *Engine
 }
