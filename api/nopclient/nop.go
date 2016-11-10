@@ -53,8 +53,8 @@ func (client *NopClient) ContainerAttach(ctx context.Context, container string, 
 }
 
 // ContainerCommit applies changes into a container and creates a new tagged image
-func (client *NopClient) ContainerCommit(ctx context.Context, container string, options types.ContainerCommitOptions) (types.ContainerCommitResponse, error) {
-	return types.ContainerCommitResponse{}, errNoEngine
+func (client *NopClient) ContainerCommit(ctx context.Context, container string, options types.ContainerCommitOptions) (types.IDResponse, error) {
+	return types.IDResponse{}, errNoEngine
 }
 
 // ContainerCreate creates a new container based in the given configuration
