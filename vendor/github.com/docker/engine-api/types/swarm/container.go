@@ -1,67 +1,41 @@
 package swarm
 
-import "time"
+import (
+	"time"
+
+	"github.com/docker/docker/api/types/container"
+	"github.com/docker/docker/api/types/mount"
+)
+
+// DNSConfig specifies DNS related configurations in resolver configuration file (resolv.conf)
+// Detailed documentation is available in:
+// http://man7.org/linux/man-pages/man5/resolv.conf.5.html
+// `nameserver`, `search`, `options` have been supported.
+// TODO: `domain` is not supported yet.
+type DNSConfig struct {
+	// Nameservers specifies the IP addresses of the name servers
+	Nameservers []string `json:",omitempty"`
+	// Search specifies the search list for host-name lookup
+	Search []string `json:",omitempty"`
+	// Options allows certain internal resolver variables to be modified
+	Options []string `json:",omitempty"`
+}
 
 // ContainerSpec represents the spec of a container.
 type ContainerSpec struct {
-	Image           string            `json:",omitempty"`
-	Labels          map[string]string `json:",omitempty"`
-	Command         []string          `json:",omitempty"`
-	Args            []string          `json:",omitempty"`
-	Env             []string          `json:",omitempty"`
-	Dir             string            `json:",omitempty"`
-	User            string            `json:",omitempty"`
-	Mounts          []Mount           `json:",omitempty"`
-	StopGracePeriod *time.Duration    `json:",omitempty"`
-}
-
-// MountType represents the type of a mount.
-type MountType string
-
-const (
-	// MountTypeBind BIND
-	MountTypeBind MountType = "bind"
-	// MountTypeVolume VOLUME
-	MountTypeVolume MountType = "volume"
-)
-
-// Mount represents a mount (volume).
-type Mount struct {
-	Type     MountType `json:",omitempty"`
-	Source   string    `json:",omitempty"`
-	Target   string    `json:",omitempty"`
-	ReadOnly bool      `json:",omitempty"`
-
-	BindOptions   *BindOptions   `json:",omitempty"`
-	VolumeOptions *VolumeOptions `json:",omitempty"`
-}
-
-// MountPropagation represents the propagation of a mount.
-type MountPropagation string
-
-const (
-	// MountPropagationRPrivate RPRIVATE
-	MountPropagationRPrivate MountPropagation = "rprivate"
-	// MountPropagationPrivate PRIVATE
-	MountPropagationPrivate MountPropagation = "private"
-	// MountPropagationRShared RSHARED
-	MountPropagationRShared MountPropagation = "rshared"
-	// MountPropagationShared SHARED
-	MountPropagationShared MountPropagation = "shared"
-	// MountPropagationRSlave RSLAVE
-	MountPropagationRSlave MountPropagation = "rslave"
-	// MountPropagationSlave SLAVE
-	MountPropagationSlave MountPropagation = "slave"
-)
-
-// BindOptions defines options specific to mounts of type "bind".
-type BindOptions struct {
-	Propagation MountPropagation `json:",omitempty"`
-}
-
-// VolumeOptions represents the options for a mount of type volume.
-type VolumeOptions struct {
-	NoCopy       bool              `json:",omitempty"`
-	Labels       map[string]string `json:",omitempty"`
-	DriverConfig *Driver           `json:",omitempty"`
+	Image           string                  `json:",omitempty"`
+	Labels          map[string]string       `json:",omitempty"`
+	Command         []string                `json:",omitempty"`
+	Args            []string                `json:",omitempty"`
+	Hostname        string                  `json:",omitempty"`
+	Env             []string                `json:",omitempty"`
+	Dir             string                  `json:",omitempty"`
+	User            string                  `json:",omitempty"`
+	Groups          []string                `json:",omitempty"`
+	TTY             bool                    `json:",omitempty"`
+	Mounts          []mount.Mount           `json:",omitempty"`
+	StopGracePeriod *time.Duration          `json:",omitempty"`
+	Healthcheck     *container.HealthConfig `json:",omitempty"`
+	DNSConfig       *DNSConfig              `json:",omitempty"`
+	Secrets         []*SecretReference      `json:",omitempty"`
 }

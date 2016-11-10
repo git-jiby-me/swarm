@@ -9,7 +9,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/docker/engine-api/types/versions"
+	"github.com/docker/docker/api/types/versions"
 )
 
 // Args stores filter arguments as map key:{map key: bool}.
@@ -165,7 +165,7 @@ func (filters Args) MatchKVList(field string, sources map[string]string) bool {
 		return true
 	}
 
-	if sources == nil || len(sources) == 0 {
+	if len(sources) == 0 {
 		return false
 	}
 

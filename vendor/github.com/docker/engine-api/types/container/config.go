@@ -3,7 +3,7 @@ package container
 import (
 	"time"
 
-	"github.com/docker/engine-api/types/strslice"
+	"github.com/docker/docker/api/types/strslice"
 	"github.com/docker/go-connections/nat"
 )
 
@@ -36,7 +36,7 @@ type HealthConfig struct {
 type Config struct {
 	Hostname        string                // Hostname
 	Domainname      string                // Domainname
-	User            string                // User that will run the command(s) inside the container
+	User            string                // User that will run the command(s) inside the container, also support user:group
 	AttachStdin     bool                  // Attach the standard input, makes possible user interaction
 	AttachStdout    bool                  // Attach the standard output
 	AttachStderr    bool                  // Attach the standard error
@@ -48,7 +48,7 @@ type Config struct {
 	Cmd             strslice.StrSlice     // Command to run when starting the container
 	Healthcheck     *HealthConfig         `json:",omitempty"` // Healthcheck describes how to check the container is healthy
 	ArgsEscaped     bool                  `json:",omitempty"` // True if command is already escaped (Windows specific)
-	Image           string                // Name of the image as it was passed by the operator (eg. could be symbolic)
+	Image           string                // Name of the image as it was passed by the operator (e.g. could be symbolic)
 	Volumes         map[string]struct{}   // List of volumes (mounts) used for the container
 	WorkingDir      string                // Current directory (PWD) in the command will be launched
 	Entrypoint      strslice.StrSlice     // Entrypoint to run when starting the container

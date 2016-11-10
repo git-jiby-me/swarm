@@ -4,8 +4,8 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/docker/engine-api/types"
-	"github.com/docker/engine-api/types/swarm"
+	"github.com/docker/docker/api/types"
+	"github.com/docker/docker/api/types/swarm"
 	"golang.org/x/net/context"
 )
 
@@ -18,8 +18,12 @@ func (cli *Client) ServiceUpdate(ctx context.Context, serviceID string, version 
 
 	if options.EncodedRegistryAuth != "" {
 		headers = map[string][]string{
-			"X-Registry-Auth": []string{options.EncodedRegistryAuth},
+			"X-Registry-Auth": {options.EncodedRegistryAuth},
 		}
+	}
+
+	if options.RegistryAuthFrom != "" {
+		query.Set("registryAuthFrom", options.RegistryAuthFrom)
 	}
 
 	query.Set("version", strconv.FormatUint(version.Index, 10))

@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"net/url"
 
-	"github.com/docker/engine-api/types"
-	"github.com/docker/engine-api/types/filters"
-	"github.com/docker/engine-api/types/swarm"
+	"github.com/docker/docker/api/types"
+	"github.com/docker/docker/api/types/filters"
+	"github.com/docker/docker/api/types/swarm"
 	"golang.org/x/net/context"
 )
 
@@ -14,8 +14,8 @@ import (
 func (cli *Client) TaskList(ctx context.Context, options types.TaskListOptions) ([]swarm.Task, error) {
 	query := url.Values{}
 
-	if options.Filter.Len() > 0 {
-		filterJSON, err := filters.ToParam(options.Filter)
+	if options.Filters.Len() > 0 {
+		filterJSON, err := filters.ToParam(options.Filters)
 		if err != nil {
 			return nil, err
 		}

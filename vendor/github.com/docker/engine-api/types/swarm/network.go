@@ -25,10 +25,12 @@ const (
 
 // PortConfig represents the config of a port.
 type PortConfig struct {
-	Name          string             `json:",omitempty"`
-	Protocol      PortConfigProtocol `json:",omitempty"`
-	TargetPort    uint32             `json:",omitempty"`
-	PublishedPort uint32             `json:",omitempty"`
+	Name     string             `json:",omitempty"`
+	Protocol PortConfigProtocol `json:",omitempty"`
+	// TargetPort is the port inside the container
+	TargetPort uint32 `json:",omitempty"`
+	// PublishedPort is the port on the swarm hosts
+	PublishedPort uint32 `json:",omitempty"`
 }
 
 // PortConfigProtocol represents the protocol of a port.
@@ -64,6 +66,7 @@ type NetworkSpec struct {
 	DriverConfiguration *Driver      `json:",omitempty"`
 	IPv6Enabled         bool         `json:",omitempty"`
 	Internal            bool         `json:",omitempty"`
+	Attachable          bool         `json:",omitempty"`
 	IPAMOptions         *IPAMOptions `json:",omitempty"`
 }
 
@@ -92,7 +95,7 @@ type IPAMConfig struct {
 	Gateway string `json:",omitempty"`
 }
 
-// Driver represents a driver (network/volume).
+// Driver represents a network driver.
 type Driver struct {
 	Name    string            `json:",omitempty"`
 	Options map[string]string `json:",omitempty"`

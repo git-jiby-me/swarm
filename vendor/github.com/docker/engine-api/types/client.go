@@ -4,16 +4,29 @@ import (
 	"bufio"
 	"io"
 	"net"
+	"os"
 
-	"github.com/docker/engine-api/types/container"
-	"github.com/docker/engine-api/types/filters"
+	"github.com/docker/docker/api/types/container"
+	"github.com/docker/docker/api/types/filters"
 	"github.com/docker/go-units"
 )
 
 // CheckpointCreateOptions holds parameters to create a checkpoint from a container
 type CheckpointCreateOptions struct {
-	CheckpointID string
-	Exit         bool
+	CheckpointID  string
+	CheckpointDir string
+	Exit          bool
+}
+
+// CheckpointListOptions holds parameters to list checkpoints for a container
+type CheckpointListOptions struct {
+	CheckpointDir string
+}
+
+// CheckpointDeleteOptions holds parameters to delete a checkpoint from a container
+type CheckpointDeleteOptions struct {
+	CheckpointID  string
+	CheckpointDir string
 }
 
 // ContainerAttachOptions holds parameters to attach to a container.
@@ -23,6 +36,7 @@ type ContainerAttachOptions struct {
 	Stdout     bool
 	Stderr     bool
 	DetachKeys string
+	Logs       bool
 }
 
 // ContainerCommitOptions holds parameters to commit changes into a container.
@@ -41,18 +55,19 @@ type ContainerExecInspect struct {
 	ContainerID string
 	Running     bool
 	ExitCode    int
+	Pid         int
 }
 
 // ContainerListOptions holds parameters to list containers with.
 type ContainerListOptions struct {
-	Quiet  bool
-	Size   bool
-	All    bool
-	Latest bool
-	Since  string
-	Before string
-	Limit  int
-	Filter filters.Args
+	Quiet   bool
+	Size    bool
+	All     bool
+	Latest  bool
+	Since   string
+	Before  string
+	Limit   int
+	Filters filters.Args
 }
 
 // ContainerLogsOptions holds parameters to filter logs with.
@@ -75,7 +90,8 @@ type ContainerRemoveOptions struct {
 
 // ContainerStartOptions holds parameters to start containers.
 type ContainerStartOptions struct {
-	CheckpointID string
+	CheckpointID  string
+	CheckpointDir string
 }
 
 // CopyToContainerOptions holds information
@@ -84,7 +100,7 @@ type CopyToContainerOptions struct {
 	AllowOverwriteDirWithFile bool
 }
 
-// EventsOptions hold parameters to filter events with.
+// EventsOptions holds parameters to filter events with.
 type EventsOptions struct {
 	Since   string
 	Until   string
@@ -140,6 +156,7 @@ type ImageBuildOptions struct {
 	Memory         int64
 	MemorySwap     int64
 	CgroupParent   string
+	NetworkMode    string
 	ShmSize        int64
 	Dockerfile     string
 	Ulimits        []*units.Ulimit
@@ -147,6 +164,14 @@ type ImageBuildOptions struct {
 	AuthConfigs    map[string]AuthConfig
 	Context        io.Reader
 	Labels         map[string]string
+	// squash the resulting image's layers to the parent
+	// preserves the original image and creates a new one from the parent with all
+	// the changes applied to a single layer
+	Squash bool
+	// CacheFrom specifies images that are used for matching cache. Images
+	// specified here do not need to have a valid parent chain to match cache.
+	CacheFrom   []string
+	SecurityOpt []string
 }
 
 // ImageBuildResponse holds information
@@ -225,8 +250,8 @@ type ImageSearchOptions struct {
 // It can be used to resize container ttys and
 // exec process ttys too.
 type ResizeOptions struct {
-	Height int
-	Width  int
+	Height uint
+	Width  uint
 }
 
 // VersionResponse holds version information for the client and the server
@@ -241,9 +266,14 @@ func (v VersionResponse) ServerOK() bool {
 	return v.Server != nil
 }
 
-// NodeListOptions holds parameters to list  nodes with.
+// NodeListOptions holds parameters to list nodes with.
 type NodeListOptions struct {
-	Filter filters.Args
+	Filters filters.Args
+}
+
+// NodeRemoveOptions holds parameters to remove nodes with.
+type NodeRemoveOptions struct {
+	Force bool
 }
 
 // ServiceCreateOptions contains the options to use when creating a service.
@@ -262,6 +292,12 @@ type ServiceCreateResponse struct {
 	ID string
 }
 
+// Values for RegistryAuthFrom in ServiceUpdateOptions
+const (
+	RegistryAuthFromSpec         = "spec"
+	RegistryAuthFromPreviousSpec = "previous-spec"
+)
+
 // ServiceUpdateOptions contains the options to be used for updating services.
 type ServiceUpdateOptions struct {
 	// EncodedRegistryAuth is the encoded registry authorization credentials to
@@ -273,14 +309,55 @@ type ServiceUpdateOptions struct {
 	// TODO(stevvooe): Consider moving the version parameter of ServiceUpdate
 	// into this field. While it does open API users up to racy writes, most
 	// users may not need that level of consistency in practice.
+
+	// RegistryAuthFrom specifies where to find the registry authorization
+	// credentials if they are not given in EncodedRegistryAuth. Valid
+	// values are "spec" and "previous-spec".
+	RegistryAuthFrom string
 }
 
 // ServiceListOptions holds parameters to list  services with.
 type ServiceListOptions struct {
-	Filter filters.Args
+	Filters filters.Args
 }
 
 // TaskListOptions holds parameters to list  tasks with.
 type TaskListOptions struct {
-	Filter filters.Args
+	Filters filters.Args
+}
+
+// PluginRemoveOptions holds parameters to remove plugins.
+type PluginRemoveOptions struct {
+	Force bool
+}
+
+// PluginInstallOptions holds parameters to install a plugin.
+type PluginInstallOptions struct {
+	Disabled              bool
+	AcceptAllPermissions  bool
+	RegistryAuth          string // RegistryAuth is the base64 encoded credentials for the registry
+	PrivilegeFunc         RequestPrivilegeFunc
+	AcceptPermissionsFunc func(PluginPrivileges) (bool, error)
+	Args                  []string
+}
+
+// SecretRequestOption is a type for requesting secrets
+type SecretRequestOption struct {
+	Source string
+	Target string
+	UID    string
+	GID    string
+	Mode   os.FileMode
+}
+
+// SwarmUnlockKeyResponse contains the response for Remote API:
+// GET /swarm/unlockkey
+type SwarmUnlockKeyResponse struct {
+	// UnlockKey is the unlock key in ASCII-armored format.
+	UnlockKey string
+}
+
+// PluginCreateOptions hold all options to plugin create.
+type PluginCreateOptions struct {
+	RepoName string
 }

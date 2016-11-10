@@ -3,8 +3,8 @@ package client
 import (
 	"encoding/json"
 
-	"github.com/docker/engine-api/types"
-	"github.com/docker/engine-api/types/swarm"
+	"github.com/docker/docker/api/types"
+	"github.com/docker/docker/api/types/swarm"
 	"golang.org/x/net/context"
 )
 
@@ -14,7 +14,7 @@ func (cli *Client) ServiceCreate(ctx context.Context, service swarm.ServiceSpec,
 
 	if options.EncodedRegistryAuth != "" {
 		headers = map[string][]string{
-			"X-Registry-Auth": []string{options.EncodedRegistryAuth},
+			"X-Registry-Auth": {options.EncodedRegistryAuth},
 		}
 	}
 

@@ -3,10 +3,17 @@ package client
 import (
 	"errors"
 	"fmt"
+
+	"github.com/docker/docker/api/types/versions"
 )
 
 // ErrConnectionFailed is an error raised when the connection between the client and the server failed.
 var ErrConnectionFailed = errors.New("Cannot connect to the Docker daemon. Is the docker daemon running on this host?")
+
+// ErrorConnectionFailed returns an error with host in the error message when connection to docker daemon failed.
+func ErrorConnectionFailed(host string) error {
+	return fmt.Errorf("Cannot connect to the Docker daemon at %s. Is the docker daemon running?", host)
+}
 
 type notFound interface {
 	error
@@ -25,7 +32,7 @@ type imageNotFoundError struct {
 	imageID string
 }
 
-// NoFound indicates that this error type is of NotFound
+// NotFound indicates that this error type is of NotFound
 func (e imageNotFoundError) NotFound() bool {
 	return true
 }
@@ -46,7 +53,7 @@ type containerNotFoundError struct {
 	containerID string
 }
 
-// NoFound indicates that this error type is of NotFound
+// NotFound indicates that this error type is of NotFound
 func (e containerNotFoundError) NotFound() bool {
 	return true
 }
@@ -67,7 +74,7 @@ type networkNotFoundError struct {
 	networkID string
 }
 
-// NoFound indicates that this error type is of NotFound
+// NotFound indicates that this error type is of NotFound
 func (e networkNotFoundError) NotFound() bool {
 	return true
 }
@@ -88,12 +95,12 @@ type volumeNotFoundError struct {
 	volumeID string
 }
 
-// NoFound indicates that this error type is of NotFound
+// NotFound indicates that this error type is of NotFound
 func (e volumeNotFoundError) NotFound() bool {
 	return true
 }
 
-// Error returns a string representation of a networkNotFoundError
+// Error returns a string representation of a volumeNotFoundError
 func (e volumeNotFoundError) Error() string {
 	return fmt.Sprintf("Error: No such volume: %s", e.volumeID)
 }
@@ -131,7 +138,7 @@ func (e nodeNotFoundError) Error() string {
 	return fmt.Sprintf("Error: No such node: %s", e.nodeID)
 }
 
-// NoFound indicates that this error type is of NotFound
+// NotFound indicates that this error type is of NotFound
 func (e nodeNotFoundError) NotFound() bool {
 	return true
 }
@@ -153,7 +160,7 @@ func (e serviceNotFoundError) Error() string {
 	return fmt.Sprintf("Error: No such service: %s", e.serviceID)
 }
 
-// NoFound indicates that this error type is of NotFound
+// NotFound indicates that this error type is of NotFound
 func (e serviceNotFoundError) NotFound() bool {
 	return true
 }
@@ -175,7 +182,7 @@ func (e taskNotFoundError) Error() string {
 	return fmt.Sprintf("Error: No such task: %s", e.taskID)
 }
 
-// NoFound indicates that this error type is of NotFound
+// NotFound indicates that this error type is of NotFound
 func (e taskNotFoundError) NotFound() bool {
 	return true
 }
@@ -199,5 +206,36 @@ func (e pluginPermissionDenied) Error() string {
 // when a user denies a plugin's permissions
 func IsErrPluginPermissionDenied(err error) bool {
 	_, ok := err.(pluginPermissionDenied)
+	return ok
+}
+
+// NewVersionError returns an error if the APIVersion required
+// if less than the current supported version
+func (cli *Client) NewVersionError(APIrequired, feature string) error {
+	if versions.LessThan(cli.version, APIrequired) {
+		return fmt.Errorf("%q requires API version %s, but the Docker server is version %s", feature, APIrequired, cli.version)
+	}
+	return nil
+}
+
+// secretNotFoundError implements an error returned when a secret is not found.
+type secretNotFoundError struct {
+	name string
+}
+
+// Error returns a string representation of a secretNotFoundError
+func (e secretNotFoundError) Error() string {
+	return fmt.Sprintf("Error: no such secret: %s", e.name)
+}
+
+// NoFound indicates that this error type is of NotFound
+func (e secretNotFoundError) NotFound() bool {
+	return true
+}
+
+// IsErrSecretNotFound returns true if the error is caused
+// when a secret is not found.
+func IsErrSecretNotFound(err error) bool {
+	_, ok := err.(secretNotFoundError)
 	return ok
 }

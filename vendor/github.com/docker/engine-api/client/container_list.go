@@ -5,8 +5,8 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/docker/engine-api/types"
-	"github.com/docker/engine-api/types/filters"
+	"github.com/docker/docker/api/types"
+	"github.com/docker/docker/api/types/filters"
 	"golang.org/x/net/context"
 )
 
@@ -34,8 +34,8 @@ func (cli *Client) ContainerList(ctx context.Context, options types.ContainerLis
 		query.Set("size", "1")
 	}
 
-	if options.Filter.Len() > 0 {
-		filterJSON, err := filters.ToParamWithVersion(cli.version, options.Filter)
+	if options.Filters.Len() > 0 {
+		filterJSON, err := filters.ToParamWithVersion(cli.version, options.Filters)
 
 		if err != nil {
 			return nil, err
