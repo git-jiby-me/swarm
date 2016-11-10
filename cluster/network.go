@@ -85,7 +85,7 @@ func (networks Networks) Filter(names []string, ids []string, types []string) Ne
 
 // RemoveDuplicateEndpoints returns a copy of input network
 // where duplicate container endpoints in the network are removed.
-// See https://github.com/docker/swarm/issues/1969
+// See https://github.com/git-jiby-me/swarm/issues/1969
 // This function should be disabled when the bug is fixed in Docker network
 func (network *Network) RemoveDuplicateEndpoints() *Network {
 	// build a map from endpointID -> endpointIndex

@@ -38,7 +38,7 @@ In order to do that, you will need to setup a full development environment plus
 ## Writing integration tests
 
 [helper functions]
-(https://github.com/docker/swarm/blob/master/test/integration/helpers.bash)
+(https://github.com/git-jiby-me/swarm/blob/master/test/integration/helpers.bash)
 are provided in order to facilitate writing tests.
 
 ```sh

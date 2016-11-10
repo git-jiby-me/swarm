@@ -55,7 +55,7 @@ For instructions on using Swarm in your dev, test or production environment, ref
 
 ## Building Swarm from Source
 
-To compile Swarm from source code, refer to the instructions in [CONTRIBUTING.md](http://github.com/docker/swarm/blob/master/CONTRIBUTING.md)
+To compile Swarm from source code, refer to the instructions in [CONTRIBUTING.md](http://github.com/git-jiby-me/swarm/blob/master/CONTRIBUTING.md)
 
 ## Participating
 
@@ -65,9 +65,9 @@ You can contribute to Docker Swarm in several different ways:
 
   - To report a problem or request a feature, please file an issue.
 
-  - Of course, we welcome pull requests and patches.  Setting up a local Swarm development environment and submitting PRs is described [here](http://github.com/docker/swarm/blob/master/CONTRIBUTING.md).
+  - Of course, we welcome pull requests and patches.  Setting up a local Swarm development environment and submitting PRs is described [here](http://github.com/git-jiby-me/swarm/blob/master/CONTRIBUTING.md).
 
-Finally, if you want to see what we have for the future and learn more about our release cycles, all this information is detailed on the [wiki](https://github.com/docker/swarm/wiki)
+Finally, if you want to see what we have for the future and learn more about our release cycles, all this information is detailed on the [wiki](https://github.com/git-jiby-me/swarm/wiki)
 
 ## Copyright and license
 

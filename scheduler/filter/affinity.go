@@ -5,8 +5,8 @@ import (
 	"strings"
 
 	log "github.com/Sirupsen/logrus"
-	"github.com/docker/swarm/cluster"
-	"github.com/docker/swarm/scheduler/node"
+	"github.com/git-jiby-me/swarm/cluster"
+	"github.com/git-jiby-me/swarm/scheduler/node"
 )
 
 // AffinityFilter selects only nodes based on other containers on the node.

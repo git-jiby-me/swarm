@@ -8,7 +8,7 @@ import (
 
 	containertypes "github.com/docker/engine-api/types/container"
 	networktypes "github.com/docker/engine-api/types/network"
-	"github.com/docker/swarm/cluster"
+	"github.com/git-jiby-me/swarm/cluster"
 	"github.com/mesos/mesos-go/mesosproto"
 	"github.com/mesos/mesos-go/mesosutil"
 	"github.com/stretchr/testify/assert"

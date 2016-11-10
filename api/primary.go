@@ -7,7 +7,7 @@ import (
 	"net/http/pprof"
 
 	log "github.com/Sirupsen/logrus"
-	"github.com/docker/swarm/cluster"
+	"github.com/git-jiby-me/swarm/cluster"
 	"github.com/gorilla/mux"
 )
 

@@ -7,8 +7,8 @@ import (
 	"strings"
 
 	"github.com/codegangsta/cli"
-	"github.com/docker/swarm/scheduler/filter"
-	"github.com/docker/swarm/scheduler/strategy"
+	"github.com/git-jiby-me/swarm/scheduler/filter"
+	"github.com/git-jiby-me/swarm/scheduler/strategy"
 )
 
 func homepath(p string) string {

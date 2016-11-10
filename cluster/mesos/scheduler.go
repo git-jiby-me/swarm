@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	log "github.com/Sirupsen/logrus"
-	"github.com/docker/swarm/cluster"
-	"github.com/docker/swarm/scheduler"
+	"github.com/git-jiby-me/swarm/cluster"
+	"github.com/git-jiby-me/swarm/scheduler"
 	"github.com/mesos/mesos-go/mesosproto"
 	mesosscheduler "github.com/mesos/mesos-go/scheduler"
 )

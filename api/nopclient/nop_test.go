@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/docker/swarm/swarmclient"
+	"github.com/git-jiby-me/swarm/swarmclient"
 	"golang.org/x/net/context"
 )
 

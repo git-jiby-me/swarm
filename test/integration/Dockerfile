@@ -20,6 +20,6 @@ RUN cd /usr/local/src/ \
     && ./install.sh /usr/local
 
 RUN mkdir -p /go/src/github.com/docker/swarm
-WORKDIR /go/src/github.com/docker/swarm/test/integration
+WORKDIR /go/src/github.com/git-jiby-me/swarm/test/integration
 
 ENTRYPOINT ["/dind"]

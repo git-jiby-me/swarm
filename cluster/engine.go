@@ -25,8 +25,8 @@ import (
 	"github.com/docker/engine-api/types/events"
 	"github.com/docker/engine-api/types/filters"
 	networktypes "github.com/docker/engine-api/types/network"
-	engineapinop "github.com/docker/swarm/api/nopclient"
-	"github.com/docker/swarm/swarmclient"
+	engineapinop "github.com/git-jiby-me/swarm/api/nopclient"
+	"github.com/git-jiby-me/swarm/swarmclient"
 	"github.com/samalba/dockerclient"
 	"github.com/samalba/dockerclient/nopclient"
 )

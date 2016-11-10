@@ -7,7 +7,7 @@ import (
 	"golang.org/x/net/context"
 
 	"github.com/docker/engine-api/types"
-	"github.com/docker/swarm/swarmclient"
+	"github.com/git-jiby-me/swarm/swarmclient"
 	"github.com/stretchr/testify/mock"
 )
 

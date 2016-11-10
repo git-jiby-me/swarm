@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/docker/swarm/cluster"
-	"github.com/docker/swarm/scheduler/node"
+	"github.com/git-jiby-me/swarm/cluster"
+	"github.com/git-jiby-me/swarm/scheduler/node"
 )
 
 // DependencyFilter co-schedules dependent containers on the same node.

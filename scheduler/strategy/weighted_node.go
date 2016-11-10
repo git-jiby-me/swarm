@@ -1,8 +1,8 @@
 package strategy
 
 import (
-	"github.com/docker/swarm/cluster"
-	"github.com/docker/swarm/scheduler/node"
+	"github.com/git-jiby-me/swarm/cluster"
+	"github.com/git-jiby-me/swarm/scheduler/node"
 )
 
 // WeightedNode represents a node in the cluster with a given weight, typically used for sorting

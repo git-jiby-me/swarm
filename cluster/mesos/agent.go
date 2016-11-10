@@ -3,8 +3,8 @@ package mesos
 import (
 	"sync"
 
-	"github.com/docker/swarm/cluster"
-	"github.com/docker/swarm/cluster/mesos/task"
+	"github.com/git-jiby-me/swarm/cluster"
+	"github.com/git-jiby-me/swarm/cluster/mesos/task"
 	"github.com/mesos/mesos-go/mesosproto"
 )
 

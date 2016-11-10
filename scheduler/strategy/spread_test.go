@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/docker/swarm/scheduler/node"
+	"github.com/git-jiby-me/swarm/scheduler/node"
 	"github.com/stretchr/testify/assert"
 )
 

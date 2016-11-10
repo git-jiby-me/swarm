@@ -8,8 +8,8 @@ import (
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/codegangsta/cli"
-	"github.com/docker/swarm/experimental"
-	"github.com/docker/swarm/version"
+	"github.com/git-jiby-me/swarm/experimental"
+	"github.com/git-jiby-me/swarm/version"
 )
 
 // Run the Swarm CLI.

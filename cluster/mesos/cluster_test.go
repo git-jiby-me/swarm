@@ -7,7 +7,7 @@ import (
 	"github.com/docker/engine-api/types"
 	containertypes "github.com/docker/engine-api/types/container"
 	networktypes "github.com/docker/engine-api/types/network"
-	"github.com/docker/swarm/cluster"
+	"github.com/git-jiby-me/swarm/cluster"
 	"github.com/stretchr/testify/assert"
 )
 

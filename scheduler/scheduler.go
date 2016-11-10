@@ -5,10 +5,10 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/docker/swarm/cluster"
-	"github.com/docker/swarm/scheduler/filter"
-	"github.com/docker/swarm/scheduler/node"
-	"github.com/docker/swarm/scheduler/strategy"
+	"github.com/git-jiby-me/swarm/cluster"
+	"github.com/git-jiby-me/swarm/scheduler/filter"
+	"github.com/git-jiby-me/swarm/scheduler/node"
+	"github.com/git-jiby-me/swarm/scheduler/strategy"
 )
 
 var (

@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"github.com/codegangsta/cli"
-	"github.com/docker/swarm/discovery/token"
+	"github.com/git-jiby-me/swarm/discovery/token"
 )
 
 func create(c *cli.Context) {

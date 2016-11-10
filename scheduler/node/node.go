@@ -3,7 +3,7 @@ package node
 import (
 	"errors"
 
-	"github.com/docker/swarm/cluster"
+	"github.com/git-jiby-me/swarm/cluster"
 )
 
 // Node is an abstract type used by the scheduler.

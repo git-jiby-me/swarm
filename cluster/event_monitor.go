@@ -6,7 +6,7 @@ import (
 
 	"github.com/docker/engine-api/types"
 	"github.com/docker/engine-api/types/events"
-	"github.com/docker/swarm/swarmclient"
+	"github.com/git-jiby-me/swarm/swarmclient"
 	"golang.org/x/net/context"
 )
 

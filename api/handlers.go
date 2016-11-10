@@ -20,9 +20,9 @@ import (
 	apitypes "github.com/docker/engine-api/types"
 	containertypes "github.com/docker/engine-api/types/container"
 	dockerfilters "github.com/docker/engine-api/types/filters"
-	"github.com/docker/swarm/cluster"
-	"github.com/docker/swarm/experimental"
-	"github.com/docker/swarm/version"
+	"github.com/git-jiby-me/swarm/cluster"
+	"github.com/git-jiby-me/swarm/experimental"
+	"github.com/git-jiby-me/swarm/version"
 	"github.com/gorilla/mux"
 	"github.com/samalba/dockerclient"
 )
@@ -288,7 +288,7 @@ func getNetwork(c *context, w http.ResponseWriter, r *http.Request) {
 	var id = mux.Vars(r)["networkid"]
 	if network := c.cluster.Networks().Uniq().Get(id); network != nil {
 		// there could be duplicate container endpoints in network, need to remove redundant
-		// see https://github.com/docker/swarm/issues/1969
+		// see https://github.com/git-jiby-me/swarm/issues/1969
 		cleanNetwork := network.RemoveDuplicateEndpoints()
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(cleanNetwork.NetworkResource)

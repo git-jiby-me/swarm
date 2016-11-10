@@ -5,8 +5,8 @@ import (
 
 	containertypes "github.com/docker/engine-api/types/container"
 	networktypes "github.com/docker/engine-api/types/network"
-	"github.com/docker/swarm/cluster"
-	"github.com/docker/swarm/scheduler/node"
+	"github.com/git-jiby-me/swarm/cluster"
+	"github.com/git-jiby-me/swarm/scheduler/node"
 	"github.com/stretchr/testify/assert"
 )
 

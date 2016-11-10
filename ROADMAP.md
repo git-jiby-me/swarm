@@ -21,7 +21,7 @@ and master election.
 * [ ] Master election
 
 ####API Matching
-Swarm currently supports around 75% of the Docker API as you can see [here](https://github.com/docker/swarm/blob/master/api/README.md)
+Swarm currently supports around 75% of the Docker API as you can see [here](https://github.com/git-jiby-me/swarm/blob/master/api/README.md)
 
 Our goal is to support 100% of the API, so all the Docker CLI commands would work against Swarm 
 
@@ -41,10 +41,10 @@ of much bigger clusters.
 
 The first integration will be Mesos but other tools will arrive after, like Kubernetes.
 
-* [x] Cluster Drivers [#393](https://github.com/docker/swarm/issues/393)
+* [x] Cluster Drivers [#393](https://github.com/git-jiby-me/swarm/issues/393)
 * [ ] Mesos implementation
 
 Project Planning
 ================
 
-An [Open-Source Planning Process](https://github.com/docker/swarm/wiki/Open-Source-Planning-Process) is used to define the Roadmap. [Project Pages](https://github.com/docker/swarm/wiki) define the goals for each Milestone and identify current progress.
+An [Open-Source Planning Process](https://github.com/git-jiby-me/swarm/wiki/Open-Source-Planning-Process) is used to define the Roadmap. [Project Pages](https://github.com/git-jiby-me/swarm/wiki) define the goals for each Milestone and identify current progress.

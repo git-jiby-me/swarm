@@ -73,4 +73,4 @@ Open PR on docker-library/official-images.
 
 ### 5. Create release on github
 
-Go to https://github.com/docker/swarm/releases/new use <tag> and changelog
+Go to https://github.com/git-jiby-me/swarm/releases/new use <tag> and changelog

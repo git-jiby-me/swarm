@@ -3,8 +3,8 @@ package strategy
 import (
 	"sort"
 
-	"github.com/docker/swarm/cluster"
-	"github.com/docker/swarm/scheduler/node"
+	"github.com/git-jiby-me/swarm/cluster"
+	"github.com/git-jiby-me/swarm/scheduler/node"
 )
 
 // BinpackPlacementStrategy places a container onto the most packed node in the cluster.
