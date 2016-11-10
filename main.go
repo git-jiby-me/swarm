@@ -4,9 +4,9 @@ import (
 	_ "github.com/docker/docker/pkg/discovery/file"
 	_ "github.com/docker/docker/pkg/discovery/kv"
 	_ "github.com/docker/docker/pkg/discovery/nodes"
-	_ "github.com/docker/swarm/discovery/token"
+	_ "github.com/git-jiby-me/swarm/discovery/token"
 
-	"github.com/docker/swarm/cli"
+	"github.com/git-jiby-me/swarm/cli"
 )
 
 func main() {
